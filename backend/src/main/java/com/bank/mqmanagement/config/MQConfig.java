@@ -1,4 +1,3 @@
-// MQConfig.java
 package com.bank.mqmanagement.config;
 
 import com.ibm.mq.jms.MQConnectionFactory;
@@ -77,77 +76,4 @@ public class MQConfig {
     }
 }
 
-// WebConfig.java
-package com.bank.mqmanagement.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200")  // URL du frontend Angular
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
-    }
-}
-
-// SwaggerConfig.java
-package com.bank.mqmanagement.config;
-
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class SwaggerConfig {
-
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .components(new Components())
-                .info(new Info()
-                        .title("API de gestion des messages MQ")
-                        .description("API pour gérer les messages IBM MQ Series et les partenaires")
-                        .version("1.0.0")
-                        .contact(new Contact()
-                                .name("Équipe de développement")
-                                .email("dev-team@bank.com"))
-                        .license(new License()
-                                .name("Propriétaire")
-                                .url("https://www.bank.com")));
-    }
-}
-
-// ErrorResponse.java
-package com.bank.mqmanagement.exception;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
-import lombok.Data;
-
-import java.time.LocalDateTime;
-
-@Data
-@Builder
-public class ErrorResponse {
-
-    private String error;
-    private String message;
-    private int status;
-    private String path;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime timestamp;
-}
 
