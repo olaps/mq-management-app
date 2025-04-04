@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # Base de données PostgreSQL
+  postgres:
+    image: postgres:14-alpine
+    container_name: mq-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mqmanagement
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # IBM MQ
+  ibmmq:
+    image: ibmcom/mq:9.2.5.0-r1
+    container_name: mq-ibmmq
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+      - MQ_ADMIN_PASSWORD=passw0rd
+    ports:
+      - "1414:1414"  # MQ listener
+      - "9443:9443"  # MQ Console
+    volumes:
+      - ibmmq-data:/var/mqm
+    healthcheck:
+      test: ["CMD", "dspmq", "-m", "QM1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Application Spring Boot
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mq-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ibmmq:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mqmanagement
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_IBM_MQ_CONNNAME=ibmmq(1414)
+      - SPRING_IBM_MQ_QUEUEMANAGER=QM1
+      - SPRING_IBM_MQ_CHANNEL=DEV.ADMIN.SVRCONN
+      - SPRING_IBM_MQ_USER=admin
+      - SPRING_IBM_MQ_PASSWORD=passw0rd
+    ports:
+      - "8080:8080"
+
+  # Frontend Angular
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mq-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+volumes:
+  postgres-data:
+  ibmmq-data:

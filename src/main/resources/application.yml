@@ -1,0 +1,75 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: mq-management
+
+  # Configuration de la base de données
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mqmanagement
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  # Configuration JPA
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+    show-sql: false
+
+  # Configuration Flyway pour les migrations de base de données
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  # Configuration IBM MQ Series
+  ibm:
+    mq:
+      queueManager: QM1
+      channel: DEV.ADMIN.SVRCONN
+      connName: localhost(1414)
+      user: admin
+      password: passw0rd
+      inputQueueName: DEV.QUEUE.1
+      useAuthentication: true
+
+# Configuration de la documentation de l'API
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+# Configuration des logs
+logging:
+  level:
+    root: INFO
+    com.bank.mqmanagement: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Configuration spécifique à l'application
+app:
+  mq:
+    listener:
+      enabled: true
+      batch-size: 100
+      poll-interval: 100  # en millisecondes
+  cache:
+    message:
+      ttl: 3600  # Durée de vie du cache en secondes
