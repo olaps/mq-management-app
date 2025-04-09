@@ -1,5 +1,3 @@
-# Application de Gestion des Messages MQ
-
 Cette application permet de gérer les messages IBM MQ Series reçus par le département de paiement de la banque. Elle offre la possibilité de stocker, consulter et gérer les messages et les partenaires.
 
 ## Fonctionnalités
@@ -209,14 +207,16 @@ L'application a été conçue pour traiter une volumétrie importante de message
 
 ## Capture d'écran de l'application
 - **List des messages**
-![Capture d’écran 2025-04-09 à 00.53.20.png](..%2F..%2F..%2F..%2F..%2FDesktop%2FCapture%20d%E2%80%99%C3%A9cran%202025-04-09%20%C3%A0%2000.53.20.png)
+  <img width="1582" alt="Capture d’écran 2025-04-09 à 00 53 20" src="https://github.com/user-attachments/assets/9000dcb7-4ccc-47ae-88e2-b2ba99bfba6d" />
 - **Détails du message**
-![Capture d’écran 2025-04-09 à 00.51.09.png](..%2F..%2F..%2F..%2F..%2FDesktop%2FCapture%20d%E2%80%99%C3%A9cran%202025-04-09%20%C3%A0%2000.51.09.png)
+<img width="1582" alt="Capture d’écran 2025-04-09 à 00 51 09" src="https://github.com/user-attachments/assets/d376d1e1-5fd6-4fa4-81f7-344085f44821" />
 - **List des partenaires**
-![Capture d’écran 2025-04-09 à 00.52.20.png](..%2F..%2F..%2F..%2F..%2FDesktop%2FCapture%20d%E2%80%99%C3%A9cran%202025-04-09%20%C3%A0%2000.52.20.png)
+<img width="1582" alt="Capture d’écran 2025-04-09 à 00 52 20" src="https://github.com/user-attachments/assets/f3c1d783-2e8d-4808-888b-aed29e40df2e" />
 - **Supprimer un partenaire**
-![Capture d’écran 2025-04-09 à 00.52.33.png](..%2F..%2F..%2F..%2F..%2FDesktop%2FCapture%20d%E2%80%99%C3%A9cran%202025-04-09%20%C3%A0%2000.52.33.png)
+<img width="1582" alt="Capture d’écran 2025-04-09 à 00 52 33" src="https://github.com/user-attachments/assets/d77974df-5c13-421b-a1ea-c4c41c34e150" />
 - **Ajouter un partenaire**
-![Capture d’écran 2025-04-09 à 00.51.36.png](..%2F..%2F..%2F..%2F..%2FDesktop%2FCapture%20d%E2%80%99%C3%A9cran%202025-04-09%20%C3%A0%2000.51.36.png)
+<img width="1582" alt="Capture d’écran 2025-04-09 à 00 51 36" src="https://github.com/user-attachments/assets/b49abf7f-a1ae-41a2-bb97-588c3ae7ac22" />
 - **Loading d'affichage des partenaires**
-![Capture d’écran 2025-04-09 à 00.51.23.png](..%2F..%2F..%2F..%2F..%2FDesktop%2FCapture%20d%E2%80%99%C3%A9cran%202025-04-09%20%C3%A0%2000.51.23.png)
+<img width="1582" alt="Capture d’écran 2025-04-09 à 00 51 23" src="https://github.com/user-attachments/assets/b125195b-34bb-4b9a-8223-815f2dbc3e7e" />
+
+
