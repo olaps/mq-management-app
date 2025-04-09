@@ -6,9 +6,12 @@ server:
 spring:
   application:
     name: mq-management
+  profiles:
+    active: dev
 
   # Configuration de la base de données
   datasource:
+    #url: jdbc:postgresql://localhost:5432/mqmanagement
     url: jdbc:postgresql://localhost:5432/mqmanagement
     username: postgres
     password: postgres
@@ -37,6 +40,7 @@ spring:
   # Configuration IBM MQ Series
   ibm:
     mq:
+      enabler: false
       queueManager: QM1
       channel: DEV.ADMIN.SVRCONN
       connName: localhost(1414)
@@ -62,14 +66,22 @@ logging:
     org.springframework.web: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.flywaydb: DEBUG
+    org.hibernate: DEBUG
+    org.springframework.jdbc: DEBUG
 
 # Configuration spécifique à l'application
 app:
   mq:
     listener:
-      enabled: true
+      enabled: false
       batch-size: 100
       poll-interval: 100  # en millisecondes
   cache:
     message:
       ttl: 3600  # Durée de vie du cache en secondes
+
+  # Configuration spécifique pour les mocks
+  mock:
+    enabled: true  # Un seul paramètre pour activer/désactiver le mock MQ
+    generation-rate: 5000  # en millisecondes

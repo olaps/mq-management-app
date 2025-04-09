@@ -1,0 +1,30 @@
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  
+    .spacer {
+      flex: 1 1 auto;
+    }
+  
+    nav {
+      button {
+        margin-left: 8px;
+        
+        &.active {
+          background-color: rgba(255, 255, 255, 0.15);
+        }
+      }
+    }
+  }
+  
+  

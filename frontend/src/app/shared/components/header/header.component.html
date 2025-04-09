@@ -1,0 +1,13 @@
+<mat-toolbar color="primary" class="app-header">
+  <span class="logo" (click)="navigateToMessages()">MQ Series Management</span>
+  <span class="spacer"></span>
+  <nav>
+    <button mat-button routerLink="/messages" routerLinkActive="active">
+      <mat-icon>message</mat-icon> Messages
+    </button>
+    <button mat-button routerLink="/partners" routerLinkActive="active">
+      <mat-icon>people</mat-icon> Partenaires
+    </button>
+  </nav>
+</mat-toolbar>
+

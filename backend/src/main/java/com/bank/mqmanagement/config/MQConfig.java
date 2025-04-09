@@ -4,6 +4,7 @@ import com.ibm.mq.jms.MQConnectionFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
@@ -13,6 +14,7 @@ import org.springframework.jms.core.JmsTemplate;
 import javax.jms.JMSException;
 
 @Configuration
+@ConditionalOnProperty(name = "spring.ibm.mq.enabled", havingValue = "true", matchIfMissing = true)
 @Slf4j
 public class MQConfig {
 

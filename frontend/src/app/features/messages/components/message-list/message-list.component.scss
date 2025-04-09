@@ -1,0 +1,57 @@
+
+.messages-container {
+    .filters-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      
+      mat-form-field {
+        flex: 1 1 200px;
+      }
+      
+      button {
+        align-self: center;
+      }
+    }
+    
+    .table-container {
+      overflow-x: auto;
+      
+      table {
+        width: 100%;
+      }
+      
+      .message-row {
+        cursor: pointer;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
+      }
+      
+      .status-chip {
+        padding: 4px 8px;
+        border-radius: 16px;
+        font-size: 12px;
+        font-weight: 500;
+        
+        &.processed {
+          background-color: #4caf50;
+          color: white;
+        }
+        
+        &.not-processed {
+          background-color: #ff9800;
+          color: white;
+        }
+      }
+    }
+    
+    .no-data {
+      text-align: center;
+      padding: 20px;
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+  

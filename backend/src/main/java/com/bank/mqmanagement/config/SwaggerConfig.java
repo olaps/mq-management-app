@@ -21,9 +21,9 @@ public class SwaggerConfig {
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Équipe de développement")
-                                .email("dev-team@bank.com"))
+                                .email("ismail.bourkhissi@gmail.com"))
                         .license(new License()
                                 .name("Propriétaire")
-                                .url("https://www.bank.com")));
+                                .url("todo")));
     }
 }

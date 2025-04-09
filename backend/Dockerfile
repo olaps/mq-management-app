@@ -1,12 +1,14 @@
-FROM eclipse-temurin:17-jdk-alpine
-
+# Étape de build
+FROM maven:3.8-amazoncorretto-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copier le fichier JAR construit avec Maven dans le conteneur
-COPY target/*.jar app.jar
-
-# Exposer le port utilisé par l'application
+# Étape d'exécution
+FROM amazoncorretto:17-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+RUN ls -la /app
 EXPOSE 8080
-
-# Point d'entrée pour démarrer l'application
 ENTRYPOINT ["java", "-jar", "app.jar"]

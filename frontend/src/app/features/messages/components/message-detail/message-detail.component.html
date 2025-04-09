@@ -1,0 +1,46 @@
+
+<div class="message-detail-dialog">
+  <h2 mat-dialog-title>Détails du message</h2>
+  
+  <mat-dialog-content>
+    <div class="message-info">
+      <div class="info-row">
+        <strong>ID :</strong> <span>{{message.id}}</span>
+      </div>
+      <div class="info-row">
+        <strong>Message ID :</strong> <span>{{message.messageId}}</span>
+      </div>
+      <div class="info-row">
+        <strong>File d'attente :</strong> <span>{{message.queueName}}</span>
+      </div>
+      <div class="info-row">
+        <strong>Type :</strong> 
+        <mat-chip-option [color]="message.messageType === 'ALERT' ? 'warn' : message.messageType === 'NOTIFICATION' ? 'accent' : 'primary'"
+        selected disableRipple>
+        {{message.messageType}}
+    </mat-chip-option>
+      </div>
+      <div class="info-row">
+        <strong>Reçu le :</strong> <span>{{formatDate(message.receivedAt)}}</span>
+      </div>
+      <div class="info-row">
+        <strong>Statut :</strong> 
+        <span class="status-chip" [ngClass]="message.processed ? 'processed' : 'not-processed'">
+          {{message.processed ? 'Traité' : 'Non traité'}}
+        </span>
+      </div>
+      <div class="info-row" *ngIf="message.processed && message.processedAt">
+        <strong>Traité le :</strong> <span>{{formatDate(message.processedAt)}}</span>
+      </div>
+    </div>
+    
+    <div class="message-content">
+      <h3>Contenu du message</h3>
+      <pre>{{message.content}}</pre>
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)="closeDialog()">Fermer</button>
+  </mat-dialog-actions>
+</div>

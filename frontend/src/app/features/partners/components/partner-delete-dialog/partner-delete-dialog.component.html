@@ -1,0 +1,12 @@
+<!-- partner-delete-dialog.component.html -->
+<h2 mat-dialog-title>Confirmation de suppression</h2>
+
+<mat-dialog-content>
+  <p>Êtes-vous sûr de vouloir supprimer le partenaire <strong>{{partner.alias}}</strong> ?</p>
+  <p class="warning-text">Cette action est irréversible.</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Annuler</button>
+  <button mat-raised-button color="warn" (click)="confirm()">Supprimer</button>
+</mat-dialog-actions>

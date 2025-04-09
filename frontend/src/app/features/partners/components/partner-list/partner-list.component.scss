@@ -1,0 +1,87 @@
+.partners-container {
+  mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .header-actions {
+      margin-left: auto;
+    }
+  }
+  
+  .search-form {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    
+    mat-form-field {
+      flex: 1;
+    }
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    
+    table {
+      width: 100%;
+    }
+    
+    .partner-row {
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+    }
+    
+    .direction-chip {
+      padding: 4px 8px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      
+      &.inbound {
+        background-color: #4caf50;
+        color: white;
+      }
+      
+      &.outbound {
+        background-color: #2196f3;
+        color: white;
+      }
+    }
+    
+    .flow-type-chip {
+      padding: 4px 8px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      
+      &.message {
+        background-color: #9c27b0;
+        color: white;
+      }
+      
+      &.alerting {
+        background-color: #f44336;
+        color: white;
+      }
+      
+      &.notification {
+        background-color: #ff9800;
+        color: white;
+      }
+    }
+    
+    .description-cell {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 20px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
