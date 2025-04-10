@@ -20,7 +20,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@ConditionalOnProperty(name = "app.mq.listener.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "app.mq.listener.enabled", matchIfMissing = true)
 public class MQListenerService {
 
     private final MessageRepository messageRepository;

@@ -16,8 +16,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Profile("dev")  // Ce service ne s'active qu'en environnement de développement
-@ConditionalOnProperty(name = "app.mq.mock.enabled", havingValue = "false", matchIfMissing = true)
+@ConditionalOnProperty(name = "app.mq.mock.enabled", matchIfMissing = true)
 public class MockMQService {
 
     private final MessageRepository messageRepository;

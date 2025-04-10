@@ -89,11 +89,8 @@ mq-management-app/
 2. Compilez et exécutez l'application avec Maven :
    ```bash
    mvn clean install
-   mvn spring-boot:run -Dspring-boot.run.profiles=dev
+   mvn spring-boot:run
    ```
-
-Le profil "dev" active le service de mock des messages MQ, ce qui permet de tester l'application sans avoir besoin d'un serveur IBM MQ réel.
-
 #### Frontend
 
 1. Naviguez vers le répertoire du frontend :
@@ -108,7 +105,66 @@ Le profil "dev" active le service de mock des messages MQ, ce qui permet de test
    ```
 
 Le frontend sera accessible à l'adresse http://localhost:4200
+## Mode développement
+### Gestion des messages MQ
 
+L'application offre deux options pour traiter les messages MQ :
+
+### Option 1 : Mode Mock (pour développement)
+
+Pour utiliser la simulation de messages MQ sans serveur IBM MQ :
+
+1. Modifiez `application.yml` :
+```yaml
+app:
+  mq:
+    mock:
+      enabled: true  # Active le mock MQ
+    listener:
+      enabled: false # Désactive le listener MQ réel
+```
+
+2. Démarrez l'application :
+```bash
+mvn spring-boot:run
+```
+
+Le service de mock générera automatiquement des messages de test.
+
+### Option 2 : IBM MQ réel
+
+Pour utiliser un véritable serveur IBM MQ :
+
+1. Démarrez IBM MQ via Docker :
+```bash
+docker-compose up -d ibmmq
+```
+
+2. Accédez à la console IBM MQ : `https://localhost:9443/ibmmq/console/`
+   - Login : admin / passw0rd
+
+3. Pour créer un message de test :
+   - Sélectionnez la queue "DEV.QUEUE.1"
+   - Cliquez sur "Create message" ou "Put message"
+   - Saisissez un exemple de message XML :
+
+<img width="1446" alt="Capture d’écran 2025-04-10 à 03 02 55" src="https://github.com/user-attachments/assets/5ef7cec4-2e31-4b53-97b1-7cd96005ea39" />
+
+4. Assurez-vous que le mock est désactivé dans `application.yml` :
+```yaml
+app:
+  mq:
+    mock:
+      enabled: false  # Désactive le mock MQ
+    listener:
+      enabled: true   # Active le listener MQ réel
+```
+
+Vous verrez les messages apparaître dans l'interface de l'application.
+r ce mode, lancez le backend :
+```bash
+mvn spring-boot:run
+```
 ## Utilisation de l'API
 
 L'API REST expose plusieurs endpoints :
@@ -166,18 +222,6 @@ L'application utilise l'approche standalone d'Angular 17 :
 - **Partner List** : Gestion des partenaires avec actions CRUD
 - **Partner Form** : Formulaire pour ajouter/modifier des partenaires
 
-## Mode développement
-
-En mode développement, le backend utilise un service de mock pour simuler la réception de messages MQ :
-- Génère 10 messages au démarrage de l'application
-- Ajoute un nouveau message toutes les 5 secondes
-- Ces messages sont stockés en base de données et accessibles via l'API REST
-
-Pour activer ce mode, lancez le backend avec le profil "dev" :
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
-```
-
 ## Résolution des problèmes courants
 
 ### IBM MQ sur macOS M1/M2
@@ -186,12 +230,6 @@ L'image Docker IBM MQ n'est pas compatible avec l'architecture ARM64 des Mac M1/
 1. Utiliser le mode développement avec le mock MQ
 2. Activer l'émulation x86_64 dans Docker Desktop
 3. Utiliser une VM ou un service distant pour IBM MQ
-
-### Erreurs CORS
-
-Si le frontend ne peut pas communiquer avec le backend à cause d'erreurs CORS :
-1. Vérifiez la configuration CORS dans `WebConfig.java`
-2. Assurez-vous que l'URL du backend est correctement configurée dans les environnements Angular
 
 ### Accès à la base de données
 

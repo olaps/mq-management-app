@@ -11,7 +11,6 @@ spring:
 
   # Configuration de la base de données
   datasource:
-    #url: jdbc:postgresql://localhost:5432/mqmanagement
     url: jdbc:postgresql://localhost:5432/mqmanagement
     username: postgres
     password: postgres
@@ -40,7 +39,7 @@ spring:
   # Configuration IBM MQ Series
   ibm:
     mq:
-      enabler: false
+      enabler: true
       queueManager: QM1
       channel: DEV.ADMIN.SVRCONN
       connName: localhost(1414)
@@ -48,7 +47,6 @@ spring:
       password: passw0rd
       inputQueueName: DEV.QUEUE.1
       useAuthentication: true
-
 # Configuration de la documentation de l'API
 springdoc:
   api-docs:
@@ -74,14 +72,14 @@ logging:
 app:
   mq:
     listener:
-      enabled: false
+      enabled: true
       batch-size: 100
       poll-interval: 100  # en millisecondes
-  cache:
-    message:
-      ttl: 3600  # Durée de vie du cache en secondes
+    cache:
+      message:
+        ttl: 3600  # Durée de vie du cache en secondes
 
-  # Configuration spécifique pour les mocks
-  mock:
-    enabled: true  # Un seul paramètre pour activer/désactiver le mock MQ
-    generation-rate: 5000  # en millisecondes
+    # Configuration spécifique pour les mocks
+    mock:
+      enabled: false  # Un seul paramètre pour activer/désactiver le mock MQ
+      generation-rate: 5000  # en millisecondes
