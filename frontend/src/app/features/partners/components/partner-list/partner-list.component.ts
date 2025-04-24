@@ -30,7 +30,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

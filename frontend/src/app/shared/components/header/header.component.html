@@ -1,13 +1,35 @@
 <mat-toolbar color="primary" class="app-header">
-  <span class="logo" (click)="navigateToMessages()">MQ Series Management</span>
+  <span class="logo" routerLink="/">MQ Series Management</span>
   <span class="spacer"></span>
-  <nav>
-    <button mat-button routerLink="/messages" routerLinkActive="active">
-      <mat-icon>message</mat-icon> Messages
+  
+  <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
+    <nav>
+      <button mat-button routerLink="/messages" routerLinkActive="active" *ngIf="authService.isUser() || authService.isSupervisor() || authService.isAdmin()">
+        <mat-icon>message</mat-icon> Messages
+      </button>
+      <button mat-button routerLink="/partners" routerLinkActive="active" *ngIf="authService.isSupervisor() || authService.isAdmin()">
+        <mat-icon>people</mat-icon> Partenaires
+      </button>
+    </nav>
+    
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-button routerLink="/partners" routerLinkActive="active">
-      <mat-icon>people</mat-icon> Partenaires
+    <mat-menu #userMenu="matMenu">
+      <span mat-menu-item disabled>{{ authService.currentUserValue?.username }}</span>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Déconnexion</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+  
+  <ng-template #loggedOut>
+    <button mat-button routerLink="/login">
+      <mat-icon>login</mat-icon> Connexion
     </button>
-  </nav>
+    <button mat-button routerLink="/register">
+      <mat-icon>person_add</mat-icon> Inscription
+    </button>
+  </ng-template>
 </mat-toolbar>
-

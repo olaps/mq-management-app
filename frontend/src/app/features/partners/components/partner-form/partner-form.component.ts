@@ -23,7 +23,6 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
