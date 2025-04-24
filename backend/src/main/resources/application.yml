@@ -34,8 +34,9 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
-    baseline-on-migrate: true
-
+    baseline-on-migrate: true  # Important pour les projets existants
+    validate-on-migrate: true
+    out-of-order: true  # Permet des migrations non séquentielles si nécessaire
   # Configuration IBM MQ Series
   ibm:
     mq:
@@ -51,7 +52,9 @@ spring:
 springdoc:
   api-docs:
     path: /api-docs
+    enabled: true
   swagger-ui:
+    enabled: true
     path: /swagger-ui.html
     operations-sorter: method
     tags-sorter: alpha
@@ -70,9 +73,11 @@ logging:
 
 # Configuration spécifique à l'application
 app:
+  jwtSecret: mL+uMHj7XZ+ReeImU4JZ9SLwAtODtQcgA3KcTyKo7uY=
+  jwtExpirationMs: 86400000  # 24 heures
   mq:
     listener:
-      enabled: true
+      enabled: false
       batch-size: 100
       poll-interval: 100  # en millisecondes
     cache:

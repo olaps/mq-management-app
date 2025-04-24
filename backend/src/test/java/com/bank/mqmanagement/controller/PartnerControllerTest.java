@@ -1,10 +1,16 @@
 package com.bank.mqmanagement.controller;
 
+import com.bank.mqmanagement.auth.repository.RoleRepository;
+import com.bank.mqmanagement.auth.repository.UserRepository;
+import com.bank.mqmanagement.auth.security.AuthEntryPointJwt;
+import com.bank.mqmanagement.auth.security.AuthTokenFilter;
+import com.bank.mqmanagement.auth.service.UserDetailsServiceImpl;
 import com.bank.mqmanagement.dto.PartnerDTO;
 import com.bank.mqmanagement.model.Partner.Direction;
 import com.bank.mqmanagement.model.Partner.ProcessedFlowType;
 import com.bank.mqmanagement.service.PartnerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +19,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 
@@ -21,7 +29,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PartnerController.class)
@@ -36,6 +44,28 @@ public class PartnerControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    // Mocks nécessaires pour Spring Security
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private RoleRepository roleRepository;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private AuthTokenFilter authTokenFilter;
+
+    @BeforeEach
+    void setup(WebApplicationContext webApplicationContext) {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .build();
+    }
     @Test
     void testCreatePartner() throws Exception {
         // Arrange

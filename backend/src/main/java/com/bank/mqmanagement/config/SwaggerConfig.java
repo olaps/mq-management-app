@@ -5,6 +5,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +16,15 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .components(new Components())
+                .components(new Components()
+                        .addSecuritySchemes("bearerAuth",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                                        .in(SecurityScheme.In.HEADER)
+                                        .name("Authorization"))
+                )
                 .info(new Info()
                         .title("API de gestion des messages MQ")
                         .description("API pour gérer les messages IBM MQ Series et les partenaires")
@@ -24,6 +34,9 @@ public class SwaggerConfig {
                                 .email("ismail.bourkhissi@gmail.com"))
                         .license(new License()
                                 .name("Propriétaire")
-                                .url("todo")));
+                                .url("todo")))
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
+
     }
+
 }
