@@ -257,4 +257,77 @@ L'application a été conçue pour traiter une volumétrie importante de message
 - **Loading d'affichage des partenaires**
 <img width="1582" alt="Capture d’écran 2025-04-09 à 00 51 23" src="https://github.com/user-attachments/assets/b125195b-34bb-4b9a-8223-815f2dbc3e7e" />
 
+## Authentification et Autorisations
+
+L'application MQ Management intègre un système complet d'authentification et d'autorisations basé sur JSON Web Tokens (JWT).
+
+### Fonctionnalités d'authentification
+
+- **Connexion utilisateur** - Les utilisateurs peuvent se connecter avec leur nom d'utilisateur et mot de passe
+- **Inscription** - Création de nouveaux comptes utilisateur
+- **Gestion de sessions** - Stockage sécurisé des tokens JWT
+- **Contrôle d'accès basé sur les rôles** - Différents niveaux d'autorisation (USER, SUPERVISOR, ADMIN)
+- **Protection des routes** - Les routes non autorisées sont automatiquement protégées
+
+### Niveaux d'autorisation
+
+L'application définit trois niveaux d'accès :
+
+1. **ROLE_USER** : Accès en lecture seule aux messages
+   - Peut consulter la liste des messages et leurs détails
+
+2. **ROLE_SUPERVISOR** : Accès aux messages et aux partenaires
+   - Toutes les permissions du ROLE_USER
+   - Peut gérer (créer, modifier, supprimer) les partenaires
+
+3. **ROLE_ADMIN** : Accès complet à toutes les fonctionnalités
+   - Toutes les permissions du ROLE_SUPERVISOR
+   - Accès aux fonctionnalités d'administration système
+
+### Utilisation
+
+#### Connexion
+
+1. Accédez à la page de connexion via le bouton "Connexion" dans le header
+2. Saisissez vos identifiants (nom d'utilisateur et mot de passe)
+3. Cliquez sur "Se connecter"
+
+Une fois connecté, votre token JWT est stocké localement et utilisé pour authentifier les requêtes.
+
+#### Inscription
+
+1. Accédez à la page d'inscription via le bouton "Inscription" dans le header
+2. Remplissez le formulaire avec vos informations
+3. Cliquez sur "S'inscrire"
+
+Par défaut, les nouveaux comptes reçoivent le rôle USER.
+
+#### Déconnexion
+
+Cliquez sur l'icône de profil dans le header puis sur "Déconnexion".
+
+### Configuration technique
+
+#### Backend (Spring Security)
+
+- Utilisation de Spring Security 5 avec JWT
+- Stockage sécurisé des mots de passe avec BCrypt
+- Durée de validité du token configurable via `app.jwtExpirationMs`
+- Configuration REST pour l'authentification sans état (stateless)
+
+#### Frontend (Angular)
+
+- Service d'authentification pour gérer login/logout
+- Intercepteur HTTP pour ajouter automatiquement le token JWT aux requêtes
+- Guards pour protéger les routes selon les rôles
+- Stockage du token et des informations utilisateur dans le localStorage
+
+*Note: Pour des raisons de sécurité, ce compte par défaut devrait être supprimé ou son mot de passe modifié dans un environnement de production.*
+## Ecran pour Login.
+- **Inscription avec Role User Par défaut**
+  ![image](https://github.com/user-attachments/assets/143e6577-2299-4241-beb8-f1d7d13f8d6d)
+- **Authentification**
+![image](https://github.com/user-attachments/assets/5259ad56-bb64-4cff-8795-0aaaf0ba4161)
+- **Déconnxion**
+![image](https://github.com/user-attachments/assets/3ae1e6b5-1336-4ec8-8ec2-dd935b8693cd)
 
