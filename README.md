@@ -146,7 +146,7 @@ docker-compose up -d ibmmq
    - Cliquez sur "Create message" ou "Put message"
    - Saisissez un exemple de message XML :
 
-<img width="1446" alt="Capture d’écran 2025-04-10 à 03 02 55" src="https://github.com/user-attachments/assets/5ef7cec4-2e31-4b53-97b1-7cd96005ea39" />
+<img width="1446" alt="Capture d’écran 2025-04-10 à 03 39 26" src="https://github.com/user-attachments/assets/6e79a0ac-1867-440c-a931-1eb0fbefe47e" />
 
 4. Assurez-vous que le mock est désactivé dans `application.yml` :
 ```yaml
